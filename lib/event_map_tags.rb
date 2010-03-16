@@ -40,8 +40,7 @@ module EventMapTags
   
   tag "events:map_header" do |tag|
     %{
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAFrI0rIDZDuINNk34yiyDqhQF9hfyBYSgAhKE7EQwyq-lTVFOihSEDbAXqcRvfDWWLBg1Zg3Gf-31BA&amp;hl=&amp;sensor=false" type="text/javascript"></script>      
-<script type="text/javascript" charset="utf-8" src="/javascripts/markerclusterer.js"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=#{Radiant::Config['event_calendar.google_api_key']}&amp;hl=&amp;sensor=false" type="text/javascript"></script>      
     }  
   end
   
