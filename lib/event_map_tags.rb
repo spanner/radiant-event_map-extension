@@ -32,13 +32,24 @@ module EventMapTags
 
     lats = points.map(&:lat)
     lngs = points.map(&:lng)
-	  bounds = [[lats.max, lngs.min], [lats.min, lngs.max]]
+	  bounds = [[lats.min, lngs.max], [lats.max, lngs.min]]
     map.center_zoom_on_bounds_init(bounds)
     
     map.div + map.to_html
   end
   
   tag "events:map_header" do |tag|
-    GMap.header(:with_vml => false)
+    %{
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAFrI0rIDZDuINNk34yiyDqhQF9hfyBYSgAhKE7EQwyq-lTVFOihSEDbAXqcRvfDWWLBg1Zg3Gf-31BA&amp;hl=&amp;sensor=false" type="text/javascript"></script>      
+<script type="text/javascript" charset="utf-8" src="/javascripts/markerclusterer.js"></script>
+    }  
+  end
+  
+  tag "events:unobtrusive_googlemap" do |tag|
+    %{<script type="text/javascript" charset="utf-8" src="#{events_path(url_parts.merge({:format => :js}))}"></script>}  
+  end
+
+  tag "events:googlemap_container" do |tag|
+    %{<div id="events_map"></div>}
   end
 end

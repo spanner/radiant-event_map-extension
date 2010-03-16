@@ -6,12 +6,6 @@ class EventMapExtension < Radiant::Extension
   description "Small additions to support the display of calendar events on a map, separated here because only of interest to a few."
   url "spanner.org"
   
-  # define_routes do |map|
-  #   map.namespace :admin, :member => { :remove => :get } do |admin|
-  #     admin.resources :event_map
-  #   end
-  # end
-  
   extension_config do |config|
     config.extension 'event_calendar'
     config.gem 'geokit'
