@@ -3,6 +3,7 @@ module Mappable
   
   def self.included(base)
     base.class_eval {
+      attr_accessor :skip_geocode
       before_validation :geocode_location
     }
   end
@@ -14,7 +15,7 @@ module Mappable
 private
 
   def geocode_location
-    unless location.blank?
+    unless location.blank? || ENV['RAILS_ENV'] == 'test'
       bias = Radiant::Config['event_map.zone'] || 'uk'
       geo = Geokit::Geocoders::MultiGeocoder.geocode(location, :bias => bias)
       errors.add(:location, "Could not Geocode location") if !geo.success
