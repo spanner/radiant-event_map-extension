@@ -1,0 +1,11 @@
+%span.calendar_views
+  %br
+  View as
+  = link_to("map", eventmap_url(calendar_parameters))
+  or
+  = link_to("calendar", calendar_url(calendar_parameters)) + "."
+  Subscribe as
+  = link_to("RSS", calendar_url(calendar_parameters.merge(:format => :rss)))
+  or
+  = link_to("iCal", calendar_url(calendar_parameters.merge(:format => :ics)))
+  
