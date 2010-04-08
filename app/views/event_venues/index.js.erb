@@ -1,0 +1,23 @@
+activations.push(function (scope) {
+  if (scope.getElement("div#map_canvas")) {
+
+    var map = new google.maps.Map(scope.getElement("div#map_canvas"), {mapTypeId: google.maps.MapTypeId.ROADMAP});
+    var bounds = new google.maps.LatLngBounds();
+  <% venues.each do |venue| %>
+    add_marker(map, {
+      title : "<%= escape_javascript(venue.title) %>",
+      icon : <%= events_at_venue(venue).length > 1 ? "'/images/event_calendar/several_events.png'" : "'/images/event_calendar/one_event.png'" %>,
+      position : new google.maps.LatLng("<%= venue.lat %>","<%= venue.lng %>"),
+      description : "<%= escape_javascript(render :partial => 'venue', :object => venue) %>"
+    });
+    bounds.extend(new google.maps.LatLng("<%= venue.lat %>","<%= venue.lng %>"));
+  <% end %>
+    map.fitBounds(bounds);
+  }
+});
+
+function add_marker (map, mark) {
+  var marker = new google.maps.Marker({ map : map, position : mark['position'], title : mark['title'], icon : mark['icon'] });
+  var infowindow = new google.maps.InfoWindow({ content : mark['description'] , maxWidth : 400 });
+  google.maps.event.addListener(marker, 'click', function() { infowindow.open(map, marker); });
+}

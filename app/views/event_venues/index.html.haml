@@ -1,0 +1,13 @@
+- content_for :head do
+  %script{:src => "http://maps.google.com/maps/api/js?sensor=false&amp;key=#{Radiant::Config['event_map.google_api_key']}"}
+  %script{:src => "#{url_for(calendar_parameters.merge(:format => :js))}"}
+
+- content_for :title do
+  - if period
+    Events
+    = list_description
+  - else
+    Events Map
+
+- content_for :faceting do
+  = render :partial => 'events/faceting'
