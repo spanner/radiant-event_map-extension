@@ -16,7 +16,7 @@ class EventVenuesController < EventsController
   end
   
   def venues
-    @venues ||= events.map(&:event_venue).uniq
+    @venues ||= events.map(&:event_venue).compact.uniq
   end
   
   # events are stashed in venue buckets to avoid returning to the database
@@ -31,8 +31,10 @@ protected
     return @venue_events if @venue_events
     @venue_events = {}
     events.each do |e|
-      @venue_events[e.event_venue.id] ||= []
-      @venue_events[e.event_venue.id].push(e)
+      if e.event_venue
+        @venue_events[e.event_venue.id] ||= []
+        @venue_events[e.event_venue.id].push(e)
+      end
     end
     @venue_events
   end
