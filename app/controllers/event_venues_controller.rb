@@ -1,3 +1,6 @@
+# We inherit from EventsController to share subsetting functionality
+# All we do here is organise that information by venue.
+
 class EventVenuesController < EventsController
   helper_method :venues, :events_at_venue
   radiant_layout { |controller| controller.layout_for :event_map }
@@ -8,9 +11,14 @@ class EventVenuesController < EventsController
       format.js {
         render :layout => false
       }
+      format.json {
+        render :json => venue_events.to_json
+      }
     end
   end
   
+  # event_finder is defined in EventsController
+
   def events
     @events ||= event_finder.all
   end
@@ -24,7 +32,7 @@ class EventVenuesController < EventsController
   def events_at_venue(venue)
     venue_events[venue.id]
   end
-  
+    
 protected
 
   def venue_events

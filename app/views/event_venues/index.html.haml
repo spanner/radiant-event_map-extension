@@ -1,13 +1,16 @@
-- content_for :head do
-  %script{:src => "http://maps.google.com/maps/api/js?sensor=false"}
-  %script{:src => "#{url_for(calendar_parameters.merge(:format => :js))}"}
-
 - content_for :title do
-  - if period
-    Events
-    = list_description
-  - else
-    Events Map
+  Events
+  = list_description
 
 - content_for :faceting do
   = render :partial => 'events/faceting'
+
+- content_for :map_js do
+  %script{:src => "http://maps.google.com/maps/api/js?sensor=false"}
+  %script{:src => "#{url_for(calendar_parameters.merge(:format => :js))}"}
+
+/ deprecated older syntax probably unknown to anyone but me
+- content_for :head do
+  %script{:src => "http://maps.google.com/maps/api/js?sensor=false"}
+  %script{:src => "#{url_for(calendar_parameters.merge(:format => :js))}"}
+  
