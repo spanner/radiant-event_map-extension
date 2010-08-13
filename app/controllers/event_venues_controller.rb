@@ -20,7 +20,7 @@ class EventVenuesController < EventsController
   # event_finder is defined in EventsController
 
   def events
-    @events ||= event_finder.all
+    @events ||= all_events
   end
   
   def venues
