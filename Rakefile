@@ -1,4 +1,19 @@
-# I think this is the one that should be moved to the extension Rakefile template
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "radiant-event_map-extension"
+    gem.summary = %Q{Google mapping for events in the radiant CMS}
+    gem.description = %Q{Further extends the event_calendar extension to allow easy google mapping with automatic geolocation based on event venues}
+    gem.email = "will@spanner.org"
+    gem.homepage = "http://github.com/radiant/radiant-event_map-extension"
+    gem.authors = ["spanner"]
+    gem.add_dependency "geokit"
+    gem.add_dependency "radiant", ">= 0.9.0"
+    gem.add_dependency "radiant-event_calendar-extension"
+  end
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. This is only required if you plan to package event_map as a gem."
+end
 
 # In rails 1.2, plugins aren't available in the path until they're loaded.
 # Check to see if the rspec plugin is installed first and require

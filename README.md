@@ -6,12 +6,16 @@ This extension adds google-mapping to the [event_calendar](http://github.com/rad
 
 Should be straightforward:
 
-		script/extension install event_map
+	script/extension install event_map
+		
+or as a gem:
+
+	gem install radiant-event_map-extension
 
 ## Requirements
 
 * [event_calendar](http://github.com/radiant/radiant-event-calendar-extension) extension
-* [share_layouts](http://github.com/radiant/radiant-share-layouts-extension) extension
+* [layouts](http://github.com/squaretalent/radiant-layouts-extension) extension
 
 ## Configuration
 
