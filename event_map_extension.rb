@@ -3,7 +3,7 @@
 
 class EventMapExtension < Radiant::Extension
   version "1.0.1"
-  description "Small additions to support the display of calendar events on a map, separated here because only of interest to a few."
+  description "Small additions to geocode calendar events and display on a map, separated here because only of interest to a few."
   url "spanner.org"
   
   extension_config do |config|
@@ -11,12 +11,9 @@ class EventMapExtension < Radiant::Extension
   end
 
   def activate
-    Event.send :include, Mappable
-    EventVenue.send :include, Mappable
-  end
-  
-  def deactivate
-    # admin.tabs.remove "Event Map"
+    require 'angle_conversions'           # adds String.to_latlng and some degree/radian conversions to Numeric
+    require 'grid_ref'                    # converts from UK grid references to lat/long
+    EventVenue.send :include, Mappable    # adds geolocation on validation
   end
   
 end
