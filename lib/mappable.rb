@@ -16,15 +16,19 @@ module Mappable
   end
   
   def geocode_basis
-    postcode || address || location
+    geocodable_columns.map{ |f| send(f) }.find{|v| !v.blank?}
+  end
+  
+  def geocodable_columns
+    [:postcode, :location, :address]
   end
   
   def url
     if url = read_attribute(:url) && !url.blank?
       url
     elsif geocoded
-      if Radiant::Config['event_map:link_to'] == 'bing'
-        "http://www.bing.com/maps/?v=2&cp=#{lat}~#{lng}&lvl=12&sty=s&eo=0"
+      if Radiant::Config['event_map.link_to'] == 'bing'
+        "http://www.bing.com/maps/?v=2&cp=#{lat}~#{lng}&rtp=~pos.#{lat}_#{lng}_#{title}&lvl=15&sty=s&eo=0"
       else
         "http://maps.google.com/maps?q=#{lat}+#{lng}+(#{title})"
       end
@@ -35,9 +39,10 @@ private
 
   def geocode_location
     unless geocode_basis.blank? || ENV['RAILS_ENV'] == 'test'
-      if geocode_basis.is_gridref? && gr = GridRef.new(geocode_basis)
+      if geocode_basis.is_gridref? && gr = GridRef.new(geocode_basis, :datum => :wgs84, :accuracy => 8) # for gps and site compatibility wgs84 is better than osgb36
         self.lat = gr.lat
         self.lng = gr.lng
+        puts "new lat/lng: #{self.lat}/#{self.lng}"
       else
         bias = Radiant::Config['event_map.zone'] || 'uk'
         geo = Geokit::Geocoders::MultiGeocoder.geocode(location, :bias => bias)
