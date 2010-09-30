@@ -27,10 +27,18 @@ module Mappable
     if url = read_attribute(:url) && !url.blank?
       url
     elsif geocoded
-      if Radiant::Config['event_map.link_to'] == 'bing'
+      format = Radiant::Config['event_map.link_format']
+      format = 'google' if format.blank?
+      case format
+      when 'bing'
         "http://www.bing.com/maps/?v=2&cp=#{lat}~#{lng}&rtp=~pos.#{lat}_#{lng}_#{title}&lvl=15&sty=s&eo=0"
-      else
+      when 'google'
         "http://maps.google.com/maps?q=#{lat}+#{lng}+(#{title})"
+      when String
+        interpolations = %w{lat lng title}
+        interpolations.inject( format.dup ) do |result, tag|
+          result.gsub(/:#{tag}/) { send( tag ) }
+        end
       end
     end
   end

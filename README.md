@@ -1,6 +1,8 @@
 # Event Map Extension for Radiant
 
-This extension adds google-mapping to the [event_calendar](http://github.com/radiant/radiant-event-calendar-extension). It is controller rather than tag-based, returning predefined page parts that you can include in a radiant layout and style however you prefer.
+This extension adds mapping to the [event_calendar](http://github.com/radiant/radiant-event-calendar-extension). It will geocode your events automatically based on the address of the venue, or you can supply a postal code, UK postcode or grid reference for greater precision.
+
+Events can be displayed on a google map and you can create links to bing or google maps that display the location of each event.
 
 ## Installation
 
@@ -15,7 +17,8 @@ or as a gem:
 ## Requirements
 
 * [event_calendar](http://github.com/radiant/radiant-event-calendar-extension) extension
-* [layouts](http://github.com/squaretalent/radiant-layouts-extension) extension
+* [layouts](http://github.com/squaretalent/radiant-layouts-extension) or [share_layouts](http://github.com/radiant/radiant-share-layouts-extension) extension
+* [geokit](http://geokit.rubyforge.org/) gem
 
 ## Configuration
 
@@ -24,6 +27,17 @@ There is one required config setting:
 * `event_map.layout` is the name of the layout used by the controller
 
 ## Basic Usage
+
+### Linking to maps
+
+We override the `url` method of EventVenue to return a map link if no other url is defined. The format of those links is determined by the link template stored in the config setting `event_map.link_format`. The markers :lat, :lng and :title will be replaced with the the correct value for each event venue.
+
+There are also two shortcuts: 
+
+* 'google' is the default and equivalent to `http://maps.google.com/maps?q=:lat+:lng+(:title)` and will drop a pin on a google map.
+* 'bing' is equivalent to `http://www.bing.com/maps/?v=2&cp=:lat~:lng&rtp=~pos.:lat_:lng_:title&lvl=15&sty=s&eo=0`, which will display a 1:25000 ordnance survey map (if you're in the UK) with a destination flag at your chosen point.
+
+### Displaying a map page
 
 Create a layout that includes a `map_canvas` div and these page parts:
 
