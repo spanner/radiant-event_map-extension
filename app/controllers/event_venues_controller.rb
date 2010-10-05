@@ -3,7 +3,7 @@
 
 class EventVenuesController < EventsController
   helper_method :venues, :events_at_venue
-  layout false
+  radiant_layout { Radiant::Config['event_map.layout'] }
   
   def index
     respond_to do |format|
