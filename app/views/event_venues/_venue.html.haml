@@ -11,8 +11,11 @@
           - remainder = events.slice!(4, 10000)
           - events.each do |event|
             %li
-              %strong
-                = link_to event.title, event.url
+              - if event.url
+                = link_to event.title, event.url, :class => 'event'
+              - else
+                %span.event
+                  = event.title
               on 
               = event.date
           - if remainder && remainder.any?

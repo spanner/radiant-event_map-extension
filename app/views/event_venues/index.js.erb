@@ -10,29 +10,16 @@ if(typeof jQuery == 'function') {
 
 function build_map_and_markers(element) {
   if (element != null) {
-    var map = new google.maps.Map(element, {mapTypeId: google.maps.MapTypeId.ROADMAP});
+    var map = new google.maps.Map(element, {
+      mapTypeId: google.maps.MapTypeId.<%= (Radiant::Config['event_map.googlemap.type'] || 'ROADMAP').upcase %>,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.<%= (Radiant::Config['event_map.googlemap.controlstyle'] || 'DROPDOWN_MENU').upcase %>
+      }
+    });
     var bounds = new google.maps.LatLngBounds();
-    var one_icon = new google.maps.MarkerImage('/images/event_calendar/one_event.png',
-      new google.maps.Size(26,45),
-      new google.maps.Point(0,0),
-      new google.maps.Point(7, 45));
-    var several_icon = new google.maps.MarkerImage('/images/event_calendar/several_events.png',
-      new google.maps.Size(26,45),
-      new google.maps.Point(0,0),
-      new google.maps.Point(9, 45));
-    var one_shadow = new google.maps.MarkerImage('/images/event_calendar/event_shadow.png',
-      new google.maps.Size(60, 44),
-      new google.maps.Point(0,0),
-      new google.maps.Point(8, 45));
-    var several_shadow = new google.maps.MarkerImage('/images/event_calendar/event_shadow.png',
-      new google.maps.Size(60, 44),
-      new google.maps.Point(0,0),
-      new google.maps.Point(5, 45));
   <% venues.each do |venue| %>
     add_marker(map, {
       title : "<%= escape_javascript(venue.title) %>",
-      image : <%= events_at_venue(venue).length > 1 ? "several_icon" : "one_icon" %>,
-      shadow : <%= events_at_venue(venue).length > 1 ? "several_shadow" : "one_shadow" %>,
       position : new google.maps.LatLng("<%= venue.lat %>","<%= venue.lng %>"),
       description : "<%= escape_javascript(render :partial => 'venue', :object => venue) %>"
     });

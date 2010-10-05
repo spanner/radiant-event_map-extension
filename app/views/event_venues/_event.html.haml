@@ -4,17 +4,14 @@
   .map_event
     - unless without_title
       %h3.event
-        = link_to event.title, event.url
+        - if event.url
+          = link_to event.title, event.url
+        - else
+          = event.title
   
     %p.date
-      %strong
-        = event.summarize_period
-        - if event.event_venue
-          at 
-          = link_to event.event_venue.title, event.event_venue.url
-        - else
-          at
-          = event.location
-
-    %p.description
+      = event.summarize_period
+      at 
+      = link_to event.event_venue.title + '.', event.event_venue.url, :class => 'location'
+      %br
       = event.short_description

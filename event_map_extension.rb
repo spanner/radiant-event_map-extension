@@ -14,6 +14,7 @@ class EventMapExtension < Radiant::Extension
     require 'angle_conversions'           # adds String.to_latlng and some degree/radian conversions to Numeric
     require 'grid_ref'                    # converts from UK grid references to lat/long
     EventVenue.send :include, Mappable    # adds geolocation on validation
+    Page.send :include, EventMapTags      # currently only a very basic events:googlemap tag
   end
   
 end
