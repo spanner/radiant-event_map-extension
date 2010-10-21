@@ -2,7 +2,7 @@
 # require_dependency 'application_controller'
 
 class EventMapExtension < Radiant::Extension
-  version "1.3.0"
+  version "1.3.1"
   description "Small additions to geocode calendar events and display on a map, separated here because only of interest to a few."
   url "spanner.org"
   
