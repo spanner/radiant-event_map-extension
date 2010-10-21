@@ -2,7 +2,7 @@
 # All we do here is organise that information by venue.
 
 class EventVenuesController < EventsController
-  helper_method :venues, :events_at_venue
+  helper_method :venues, :events_at_venue, :slug_for_venue
   radiant_layout { Radiant::Config['event_map.layout'] }
   
   def index
@@ -31,6 +31,12 @@ class EventVenuesController < EventsController
   
   def events_at_venue(venue)
     venue_events[venue.id]
+  end
+  
+  def slug_for_venue(venue)
+    if events = venue_events[venue.id]
+      events.first.calendar.slug
+    end
   end
     
 protected
