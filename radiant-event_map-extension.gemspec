@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{radiant-event_map-extension}
-  s.version = "1.3.0"
+  s.version = "1.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["spanner"]
-  s.date = %q{2010-10-05}
+  s.date = %q{2010-10-21}
   s.description = %q{Further extends the event_calendar extension to allow easy google mapping with automatic geolocation based on event venues}
   s.email = %q{will@spanner.org}
   s.extra_rdoc_files = [
@@ -37,11 +37,8 @@ Gem::Specification.new do |s|
      "lib/grid_ref.rb",
      "lib/mappable.rb",
      "lib/tasks/event_map_extension_tasks.rake",
-     "public/images/event_calendar/event_shadow.png",
-     "public/images/event_calendar/one_event.png",
-     "public/images/event_calendar/several_events.png",
-     "public/javascript/markerclusterer.js",
-     "public/stylesheets/sass/map.sass",
+     "public/images/map_icons/pink-dot.png",
+     "public/images/map_icons/shadow.png",
      "radiant-event_map-extension.gemspec",
      "spec/lib/grid_ref_spec.rb",
      "spec/spec.opts",

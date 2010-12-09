@@ -8,8 +8,8 @@ begin
     gem.homepage = "http://github.com/radiant/radiant-event_map-extension"
     gem.authors = ["spanner"]
     gem.add_dependency "geokit"
-    gem.add_dependency "radiant", ">= 0.9.0"
-    gem.add_dependency "radiant-event_calendar-extension", ">= 1.3.0"
+    gem.add_dependency "radiant", "~> 0.9.0"
+    gem.add_dependency "radiant-event_calendar-extension", "~> 1.3.0"
   end
 rescue LoadError
   puts "Jeweler (or a dependency) not available. This is only required if you plan to package event_map as a gem."

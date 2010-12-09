@@ -1,6 +1,5 @@
 module EventMapTags
   include Radiant::Taggable
-  include 
   
   class TagError < StandardError; end
   

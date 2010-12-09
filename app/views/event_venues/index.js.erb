@@ -18,17 +18,19 @@ function build_map_and_markers(element) {
     });
     var bounds = new google.maps.LatLngBounds();
   <% venues.each do |venue| %>
-    var location = new google.maps.LatLng("<%= venue.lat %>","<%= venue.lng %>")
-    add_marker(map, {
-      title : "<%= escape_javascript(venue.title) %>",
-      position : location,
-    <% if Radiant::Config['event_map.use_calendar_icons?'] && slug = slug_for_venue(venue) %>
-      image : "/images/map_icons/<%= slug %>.png",
-      shadow : "/images/map_icons/<%= slug %>_shadow.png",
+    <%- if venue.lat && venue.lng %>
+      var location = new google.maps.LatLng("<%= venue.lat %>","<%= venue.lng %>")
+      add_marker(map, {
+        title : "<%= escape_javascript(venue.title) %>",
+        position : location,
+      <% if Radiant::Config['event_map.use_calendar_icons?'] && slug = slug_for_venue(venue) %>
+        image : "/images/map_icons/<%= slug %>.png",
+        shadow : "/images/map_icons/<%= slug %>_shadow.png",
+      <% end %>
+        description : "<%= escape_javascript(render :partial => 'venue', :object => venue) %>"
+      });
+      bounds.extend(location);
     <% end %>
-      description : "<%= escape_javascript(render :partial => 'venue', :object => venue) %>"
-    });
-    bounds.extend(location);
   <% end %>
     map.fitBounds(bounds);
   }
