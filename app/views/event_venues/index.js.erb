@@ -1,15 +1,6 @@
-if(typeof jQuery == 'function') {
-	jQuery.fn.populate_map = function() { 
-		this.each(function() { build_map_and_markers(this); });
-	};
-
-  jQuery(function() {
-    jQuery("#map_canvas").populate_map();
-  });
-}
-
 function build_map_and_markers(element) {
-  if (element != null) {
+  if (!element) element = document.getElementById('map_canvas');
+  if (element) {
     var map = new google.maps.Map(element, {
       mapTypeId: google.maps.MapTypeId.<%= (Radiant::Config['event_map.googlemap.type'] || 'ROADMAP').upcase %>,
       mapTypeControlOptions: {
@@ -41,6 +32,15 @@ function add_marker (map, mark) {
   var infowindow = new google.maps.InfoWindow({ content : mark['description'] , maxWidth : 400 });
   google.maps.event.addListener(marker, 'click', function() { infowindow.open(map, marker); });
 }
+
+if(typeof jQuery == 'function') {
+	jQuery.fn.populate_map = function() { this.each(function() { build_map_and_markers(this); }); };
+  jQuery(function() { jQuery("#map_canvas").populate_map(); });
+} else {
+  window.onLoad = build_map_and_markers;
+}
+
+
 
 
 

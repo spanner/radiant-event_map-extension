@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{radiant-event_map-extension}
-  s.version = "1.3.1"
+  s.version = "1.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["spanner"]
-  s.date = %q{2010-10-21}
+  s.date = %q{2010-12-09}
   s.description = %q{Further extends the event_calendar extension to allow easy google mapping with automatic geolocation based on event venues}
   s.email = %q{will@spanner.org}
   s.extra_rdoc_files = [
@@ -60,17 +60,17 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<geokit>, [">= 0"])
-      s.add_runtime_dependency(%q<radiant>, [">= 0.9.0"])
-      s.add_runtime_dependency(%q<radiant-event_calendar-extension>, [">= 1.3.0"])
+      s.add_runtime_dependency(%q<radiant>, ["~> 0.9.0"])
+      s.add_runtime_dependency(%q<radiant-event_calendar-extension>, ["~> 1.3.0"])
     else
       s.add_dependency(%q<geokit>, [">= 0"])
-      s.add_dependency(%q<radiant>, [">= 0.9.0"])
-      s.add_dependency(%q<radiant-event_calendar-extension>, [">= 1.3.0"])
+      s.add_dependency(%q<radiant>, ["~> 0.9.0"])
+      s.add_dependency(%q<radiant-event_calendar-extension>, ["~> 1.3.0"])
     end
   else
     s.add_dependency(%q<geokit>, [">= 0"])
-    s.add_dependency(%q<radiant>, [">= 0.9.0"])
-    s.add_dependency(%q<radiant-event_calendar-extension>, [">= 1.3.0"])
+    s.add_dependency(%q<radiant>, ["~> 0.9.0"])
+    s.add_dependency(%q<radiant-event_calendar-extension>, ["~> 1.3.0"])
   end
 end
 
