@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.summary     = RadiantEventMapExtension::SUMMARY
   s.description = RadiantEventMapExtension::DESCRIPTION
 
-  s.add_dependency "geokit", :version => "~> 1.5.0"
-  s.add_dependency "radiant-event_calendar-extension", :version => "~> 1.4.4"
+  s.add_dependency "geokit", "~> 1.5.0"
+  s.add_dependency "radiant-event_calendar-extension", "~> 1.4.4"
 
   ignores = if File.exist?('.gitignore')
     File.read('.gitignore').split("\n").inject([]) {|a,p| a + Dir[p] }
