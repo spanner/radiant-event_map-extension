@@ -50,7 +50,8 @@ private
       if geocode_basis.is_gridref? && gr = GridRef.new(geocode_basis, :datum => :wgs84, :accuracy => 8) # for gps and site compatibility wgs84 is better than osgb36
         self.lat = gr.lat
         self.lng = gr.lng
-        puts "new lat/lng: #{self.lat}/#{self.lng}"
+      elsif geocode_basis.is_latlong?
+        self.lat, self.lng = geocode_basis.split(/, */)
       else
         bias = Radiant::Config['event_map.zone'] || 'uk'
         geo = Geokit::Geocoders::MultiGeocoder.geocode(location, :bias => bias)
