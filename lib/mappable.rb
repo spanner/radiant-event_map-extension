@@ -55,7 +55,7 @@ private
       else
         bias = Radiant::Config['event_map.zone'] || 'uk'
         geo = Geokit::Geocoders::MultiGeocoder.geocode(location, :bias => bias)
-        errors.add(:postcode, "Could not Geocode location: please specify here") if !geo.success
+        errors.add(:postcode, "Could not Geocode location: please specify here") unless geo.success
         self.lat, self.lng = geo.lat, geo.lng if geo.success
       end
     end

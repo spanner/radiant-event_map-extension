@@ -9,7 +9,7 @@ describe GridRef do
     lambda{ GridRef.new("SD1234567890") }.should_not raise_error
   end
   
-  describe " standard transformation" do
+  describe "standard transformation" do
     before do
       @gr = GridRef.new("SD2873178452")
     end
@@ -58,33 +58,4 @@ describe GridRef do
       @gr.lng.should == -3.093901
     end
   end
-end
-
-describe String do
-  describe "that is a grid reference" do
-    it "should respond positively to .is_gridref?" do
-      "SD123456".is_gridref?.should be_true
-    end
-    
-    it "should respond to .to_latlng with coordinates" do
-      "SD2873178452".to_latlng.should == "54.196698, -3.092537"
-    end
-
-    it "should pass through options to the grid ref" do
-      "SD2873178452".to_latlng(:datum => :wgs84).should == "54.19685, -3.093901"
-      "SD2873178452".to_wgs84.should == "54.19685, -3.093901"
-    end
-  end
-
-  describe "that is a not recognised as a grid reference" do
-    it "should respond negatively to .is_gridref?" do
-      "banana".is_gridref?.should be_false
-    end
-    
-    it "should return nil to .to_latlng" do
-      lambda{ "banana".to_latlng }.should_not raise_error
-      "banana".to_latlng.should be_nil
-    end
-  end
-  
 end
