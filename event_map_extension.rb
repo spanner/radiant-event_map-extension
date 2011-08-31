@@ -8,10 +8,6 @@ class EventMapExtension < Radiant::Extension
   description RadiantEventMapExtension::DESCRIPTION
   url RadiantEventMapExtension::URL
   
-  extension_config do |config|
-    config.gem "geokit"
-  end
-
   def activate
     require 'angle_conversions'             # adds degree/radian conversions to Numeric
     require 'string_conversions'            # adds lat/long and gridref conversions to String

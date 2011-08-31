@@ -1,3 +1,5 @@
+require 'geokit'
+
 module Mappable
   include Geokit::Geocoders
   
