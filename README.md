@@ -6,17 +6,19 @@ Events can be displayed on a google map and you can create links to bing or goog
 
 ## Installation
 
-Should be straightforward:
-
-	script/extension install event_map
-		
-or as a gem:
+As of version 1.5.0 this extension is only compatible with radiant 1.0 and should be installed as a gem:
 
 	gem install radiant-event_map-extension
+	
+and then in your radiant application's Gemfile:
+
+	gem 'radiant-event_map-extension', '~> 1.4.0'
 
 ## Requirements
 
-* [event_calendar](http://github.com/radiant/radiant-event-calendar-extension) extension
+These will be installed automatically when you install the gem:
+
+* [event_calendar](http://github.com/radiant/radiant-event-calendar-extension) extension version 1.5 or greater
 * [layouts](http://github.com/squaretalent/radiant-layouts-extension) or [share_layouts](http://github.com/radiant/radiant-share-layouts-extension) extension
 * [geokit](http://geokit.rubyforge.org/) gem
 

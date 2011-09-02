@@ -14,7 +14,6 @@ class EventMapExtension < Radiant::Extension
     require 'grid_ref'                      # converts coordinates from UK grid references to lat/long
     EventVenue.send :include, Mappable      # adds geolocation on validation
     Page.send :include, EventMapTags        # defines a very basic events:googlemap tag
-                                            # the real work is done when the EventVenuesController builds javascript
   end
   
 end
