@@ -17,10 +17,10 @@ class EventVenuesController < EventsController
     end
   end
   
-  # event_finder is defined in EventsController
+  # event_finder is in EventsController. Returns a scope than may apply a period or some other restriction.
 
   def events
-    @events ||= all_events
+    @events ||= event_finder
   end
   
   def venues
@@ -42,15 +42,12 @@ class EventVenuesController < EventsController
 protected
 
   def venue_events
-    return @venue_events if @venue_events
-    @venue_events = {}
-    events.each do |e|
-      if e.event_venue
-        @venue_events[e.event_venue.id] ||= []
-        @venue_events[e.event_venue.id].push(e)
+    @venue_events ||= events.each_with_object({}) do |event, venues|
+      if event.event_venue
+        venues[event.event_venue.id] ||= []
+        venues[event.event_venue.id].push(event)
       end
     end
-    @venue_events
   end
 
 end

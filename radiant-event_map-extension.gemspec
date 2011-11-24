@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.description = RadiantEventMapExtension::DESCRIPTION
 
   s.add_dependency "geokit", "~> 1.5.0"
+  s.add_dependency "osgb", "~> 0.2.0"
   s.add_dependency "radiant-event_calendar-extension", "~> 1.5.0"
 
   ignores = if File.exist?('.gitignore')

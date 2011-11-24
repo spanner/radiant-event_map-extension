@@ -1,4 +1,5 @@
 require 'geokit'
+require 'osgb'
 
 module Mappable
   include Geokit::Geocoders
@@ -49,12 +50,14 @@ private
 
   def geocode_location
     unless geocode_basis.blank? || ENV['RAILS_ENV'] == 'test'
-      if geocode_basis.is_gridref? && gr = GridRef.new(geocode_basis, :datum => :wgs84, :accuracy => 8) # for gps and site compatibility wgs84 is better than osgb36
-        self.lat = gr.lat
-        self.lng = gr.lng
-      elsif geocode_basis.is_latlong?
-        self.lat, self.lng = geocode_basis.split(/, */)
+      if geocode_basis.is_gridref?
+        # it's an OS grid ref
+        self.lat, self.lng = geocode_basis.to_wgs84
+      elsif geocode_basis.is_latlng?
+        # it's already a co-ordinate pair
+        self.lat, self.lng = geocode_basis.coordinates
       else
+        # we will attempt to geocode it
         bias = Radiant::Config['event_map.zone'] || 'uk'
         geo = Geokit::Geocoders::MultiGeocoder.geocode(location, :bias => bias)
         errors.add(:postcode, "Could not Geocode location: please specify here") unless geo.success
